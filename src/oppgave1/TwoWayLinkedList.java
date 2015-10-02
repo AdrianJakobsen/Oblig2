@@ -52,10 +52,8 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
      */
     public void addFirst(E e) {
         Node<E> newNode = new Node<E>(e); // Create a new node
-        if(size >= 1){
-            newNode.previous = head;
-        }
         newNode.next = head; // link the new node with the head
+        head.previous = newNode; // set the previous to the second element
         head = newNode; // head points to the new node
         size++; // Increase list size
         if (tail == null) // the new node is the only node in list
@@ -72,7 +70,8 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
             head = tail = newNode; // The new node with the last node
             tail.next = newNode; // Link the new is the only node in list
         } else {
-            tail = tail.next; // tail now points to the last node
+            newNode.previous = tail;
+            tail = newNode; // tail now points to the last node
         }
 
         size++; // Increase size
@@ -94,7 +93,9 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
             }
             Node<E> temp = current.next;
             current.next = new Node<E>(e);
+            (current.next).previous = current;
             (current.next).next = temp;
+            ((current.next).next).previous = current.next;
             size++;
         }
     }

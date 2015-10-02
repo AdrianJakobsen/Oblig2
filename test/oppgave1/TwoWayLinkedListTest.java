@@ -26,6 +26,11 @@ public class TwoWayLinkedListTest {
     }
 
     @Test
+    public void get_getTheFifthObjectInList_java(){
+        assertEquals("java", twoWayLinkedList.get(5));
+    }
+
+    @Test
     public void getLast_getLastObjectInList_bastion(){
         assertEquals("bastion", twoWayLinkedList.getLast());
     }
