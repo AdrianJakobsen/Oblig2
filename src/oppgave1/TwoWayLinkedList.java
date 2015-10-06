@@ -70,8 +70,10 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
             head = tail = newNode; // The new node with the last node
             tail.next = newNode; // Link the new is the only node in list
         } else {
+            tail.next = newNode;
             newNode.previous = tail;
             tail = newNode; // tail now points to the last node
+            tail.next = tail;
         }
 
         size++; // Increase size
