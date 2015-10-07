@@ -21,8 +21,8 @@ public class TwoWayLinkedListTest {
     }
 
     @Test
-    public void get_getTheThirdObjectInList_House(){
-        assertEquals("house", twoWayLinkedList.get(3));
+    public void get_getTheThirdObjectInList_kirby(){
+        assertEquals("kirby", twoWayLinkedList.get(3));
     }
 
     @Test
@@ -50,6 +50,6 @@ public class TwoWayLinkedListTest {
     @Test
     public void addFirst_addedObjectPointsToThePreviousFirst_party(){
         twoWayLinkedList.addFirst("pen");
-        assertEquals("party", twoWayLinkedList.get(1));
+        assertEquals("pen", twoWayLinkedList.listIterator().next());
     }
 }

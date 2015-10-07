@@ -8,26 +8,17 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
 
     private int size;
 
-    /**
-     * Create a default list
-     */
     public TwoWayLinkedList() {
 
         size = 0;
     }
 
-    /**
-     * Create a list from an array of objects
-     */
     public TwoWayLinkedList(E[] objects) {
-        for(int i=0; i<objects.length; i++){
+        for (int i = 0; i < objects.length; i++) {
             addLast(objects[i]);
         }
     }
 
-    /**
-     * Return the head element in the list
-     */
     public E getFirst() {
         if (size == 0) {
             return null;
@@ -36,9 +27,6 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
         }
     }
 
-    /**
-     * Return the last element in the list
-     */
     public E getLast() {
         if (size == 0) {
             return null;
@@ -47,9 +35,6 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
         }
     }
 
-    /**
-     * Add an element to the beginning of the list
-     */
     public void addFirst(E e) {
         Node<E> newNode = new Node<E>(e); // Create a new node
         newNode.next = head; // link the new node with the head
@@ -60,15 +45,13 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
             tail = head;
     }
 
-    /**
-     * Add an element to the end of the list
-     */
     public void addLast(E e) {
         Node<E> newNode = new Node<E>(e); // Create a new for element e
 
         if (tail == null) {
             head = tail = newNode; // The new node with the last node
             tail.next = newNode; // Link the new is the only node in list
+            tail.previous = head;
         } else {
             tail.next = newNode;
             newNode.previous = tail;
@@ -81,8 +64,6 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
 
 
     @Override
-    /** Add a new element at the specified index
-     * in this list. The index of the head element is 0 */
     public void add(int index, E e) {
         if (index == 0) {
             addFirst(e);
@@ -102,10 +83,6 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
         }
     }
 
-    /**
-     * Remove the head node and
-     * return the object that is contained in the removed node.
-     */
     public E removeFirst() {
         if (size == 0) {
             return null;
@@ -120,10 +97,6 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
         }
     }
 
-    /**
-     * Remove the last node and
-     * return the object that is contained in the removed node.
-     */
     public E removeLast() {
         if (size == 0) {
             return null;
@@ -148,8 +121,6 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
     }
 
     @Override
-    /** Remove the element at the specified position in this
-     *  list. Return the element that was removed from the list. */
     public E remove(int index) {
         if (index < 0 || index >= size) {
             return null;
@@ -172,7 +143,6 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
     }
 
     @Override
-    /** Override toString() to return elements in the list */
     public String toString() {
         StringBuilder result = new StringBuilder("[");
 
@@ -191,7 +161,6 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
     }
 
     @Override
-    /** Clear the list */
     public void clear() {
         size = 0;
         head = tail = null;
@@ -199,27 +168,29 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
 
 
     @Override
-    /** Return the element at the specified index */
     public E get(int index) {
 
-            Node<E> current = head;
-            for (int i = 0; i < index; i++) {
-                current = current.next;
-            }
-            return current.element;
+        Node<E> current = head;
+        for (int i = 1; i < index; i++) {
+            current = current.next;
+        }
+        return current.element;
     }
 
 
     @Override
-    /** Replace the element at the specified position
-     *  in this list with the specified element. */
     public E set(int index, E e) {
-        //fix
+        if (index <= size) {
+            Node<E> current = head;
+            for (int i = 1; i < index; i++) {
+                current = current.next;
+            }
+            current.element = e;
+        }
         return null;
     }
 
     @Override
-    /** Override iterator() defined in Iterable */
     public java.util.Iterator<E> iterator() {
 
         return new LinkedListIterator();
