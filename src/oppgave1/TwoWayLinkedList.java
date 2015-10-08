@@ -5,15 +5,14 @@ import java.util.ListIterator;
 
 public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
     private Node<E> head, tail;
-
     private int size;
 
     public TwoWayLinkedList() {
-
         size = 0;
     }
 
     public TwoWayLinkedList(E[] objects) {
+        size = 0;
         for (int i = 0; i < objects.length; i++) {
             addLast(objects[i]);
         }
@@ -89,6 +88,7 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
         } else {
             Node<E> temp = head;
             head = head.next;
+            head.previous = null;
             size--;
             if (head == null) {
                 tail = null;
@@ -137,6 +137,7 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
 
             Node<E> current = previous.next;
             previous.next = current.next;
+            current.next.previous = previous;
             size--;
             return current.element;
         }
@@ -205,8 +206,8 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
 
     @Override
     public ListIterator<E> listIterator(int index) {
-
-        return null;
+        ListIterator<E> iterator = new LinkedListIterator<>(index);
+        return iterator;
     }
 
     private void checkIndex(int index) {
@@ -233,11 +234,13 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
         }
 
         public LinkedListIterator(int index) {
-            if (index < 0 || index > size)
+            if (index < 0 || index > size) {
                 throw new IndexOutOfBoundsException("Index: " + index + ", Size: "
                         + size);
-            for (int nextIndex = 0; nextIndex < index; nextIndex++)
+            }
+            for (int nextIndex = 0; nextIndex < index; nextIndex++) {
                 current = current.next;
+            }
         }
 
         public boolean hasNext() {
