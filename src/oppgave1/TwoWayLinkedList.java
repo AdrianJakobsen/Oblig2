@@ -39,6 +39,7 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
         newNode.next = head; // link the new node with the head
         head.previous = newNode; // set the previous to the second element
         head = newNode; // head points to the new node
+        head.previous = null;
         size++; // Increase list size
         if (tail == null) // the new node is the only node in list
             tail = head;
@@ -49,13 +50,13 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
 
         if (tail == null) {
             head = tail = newNode; // The new node with the last node
-            tail.next = newNode; // Link the new is the only node in list
-            tail.previous = head;
+            tail.next = null; // Link the new is the only node in list
+            tail.previous = null;
         } else {
             tail.next = newNode;
             newNode.previous = tail;
             tail = newNode; // tail now points to the last node
-            tail.next = tail;
+            tail.next = null    ;
         }
 
         size++; // Increase size
@@ -76,8 +77,9 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
             Node<E> temp = current.next;
             current.next = new Node<E>(e);
             (current.next).previous = current;
-            (current.next).next = temp;
-            ((current.next).next).previous = current.next;
+            current = current.next;
+            current.next = temp;
+            (current.next).previous = current;
             size++;
         }
     }
@@ -172,7 +174,7 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
     public E get(int index) {
 
         Node<E> current = head;
-        for (int i = 1; i < index; i++) {
+        for (int i = 0; i < index; i++) {
             current = current.next;
         }
         return current.element;
@@ -183,7 +185,7 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
     public E set(int index, E e) {
         if (index <= size) {
             Node<E> current = head;
-            for (int i = 1; i < index; i++) {
+            for (int i = 0; i < index; i++) {
                 current = current.next;
             }
             current.element = e;
@@ -228,7 +230,7 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
 
     private class LinkedListIterator<E> implements java.util.ListIterator<E> {
         private Node<E> current = (Node<E>) head; // Current index
-        int index = 0;
+        private int index = 0;
 
         public LinkedListIterator() {
         }
@@ -248,8 +250,14 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
         }
 
         public E next() {
-            E e = current.element;
             current = current.next;
+            E e = current.element;
+            return e;
+        }
+
+        public E previous() {
+            current = current.previous;
+            E e = current.element;
             return e;
         }
 
@@ -270,11 +278,6 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
             return 0;
         }
 
-        public E previous() {
-            E e = current.element;
-            current = current.previous;
-            return e;
-        }
 
         public int previousIndex() {
             System.out.println("Not implemented");
