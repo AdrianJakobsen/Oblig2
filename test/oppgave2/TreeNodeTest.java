@@ -62,4 +62,85 @@ public class TreeNodeTest {
         assertEquals(2, (int) tree.testingGetNode(1).parent.element);
     }
 
+    @Test
+    public void isLeaf_checkIfRootIsLeaf_true(){
+        BST<Integer> tree = new BST<>(new Integer[]{5});
+        assertEquals(true, tree.testingIsLeaf(5));
+    }
+
+    @Test
+    public void is_leaf_checkIfANodeWithChildToRight_false(){
+        BST<Integer> tree = new BST<>(new Integer[]{10,7,12,8,4,9});
+        assertEquals(false, tree.testingIsLeaf(8));
+    }
+
+    @Test
+    public void isLeaf_checkIfANodeWithChildToLeft_false(){
+        BST<Integer> tree = new BST<>(new Integer[]{10,7,12,8,4,9,11});
+        assertEquals(false, tree.testingIsLeaf(12));
+    }
+
+    @Test
+    public void isLeaf_checkIfANodeWithoutChildren_true(){
+        BST<Integer> tree = new BST<>(new Integer[]{10,7,12,8,4,9,11});
+        assertEquals(true, tree.testingIsLeaf(11));
+    }
+
+    @Test
+    public void isLeaf_checkANodeWithBothChildren_false(){
+        BST<Integer> tree = new BST<>(new Integer[]{10,7,12,8,4,9,11});
+        assertEquals(false, tree.testingIsLeaf(7));
+    }
+
+    @Test
+    public void delete_sizeIsCorrect_7(){
+        BST<Integer> tree = new BST<>(new Integer[]{50,30,20,40,65,60,70,68});
+        tree.delete(68);
+        assertEquals(7, tree.getSize());
+    }
+
+    @Test
+    public void delete_removeObjectCase1Part1_false(){
+        BST<Integer> tree = new BST<>(new Integer[]{50,30,20,40,65,60,70,68});
+        tree.delete(68);
+        assertEquals(false, tree.search(68));
+    }
+
+    @Test
+    public void delete_removeObjectCase1Part2_false(){
+        BST<Integer> tree = new BST<>(new Integer[]{50,30,20,40,65,70,68,69});
+        tree.delete(69);
+        assertEquals(false, tree.search(69));
+    }
+
+    @Test
+    public void delete_removeObjectCase2_false(){
+        BST<Integer> tree = new BST<>(new Integer[]{50,30,20,40,65,60,70,64});
+        tree.delete(65);
+        assertEquals(false, tree.search(65));
+    }
+
+    @Test
+    public void delete_removeObjectCase2RightMostTakeDeletedsPlace_64(){
+        BST<Integer> tree = new BST<>(new Integer[]{50,30,20,40,65,60,70,64});
+        tree.delete(65);
+        assertEquals(64, (int)tree.testingGetNode(64).element);
+    }
+
+    @Test
+    public void delete_removeObjectCase2RightMostTakeDeletedsPlaceParentIsRight_64(){
+        BST<Integer> tree = new BST<>(new Integer[]{50,30,20,40,65,60,70,64});
+        tree.delete(65);
+        assertEquals(tree.getRoot(), tree.testingGetNode(64).parent);
+    }
+
+    @Test
+    public void delete_removeObjectSpecialCaseParentOfDeletetpointsToDeletedsLeft_64(){
+        BST<Integer> tree = new BST<>(new Integer[]{50,30,20,40,65,60,70,69});
+        tree.delete(70);
+        assertEquals(tree.testingGetNode(69), tree.testingGetNode(65).right);
+    }
+
+
+
 }

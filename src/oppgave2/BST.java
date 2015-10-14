@@ -97,8 +97,15 @@ public class BST<E extends Comparable<E>>
         }
     }
 
-    private boolean isLeaf(E element){
+    public boolean testingIsLeaf(E element){
+        return isLeaf(element);
+    }
 
+    private boolean isLeaf(E element){
+        TreeNode<E> nodeToCheck = getNode(element);
+        if(nodeToCheck.left==null && nodeToCheck.right==null){
+            return true;
+        }
         return false;
     }
 
@@ -187,12 +194,14 @@ public class BST<E extends Comparable<E>>
             } else {
                 if (e.compareTo(parent.element) < 0) {
                     parent.left = current.right;
-                    current = current.right;
-                    current.parent = parent;
+                    if(parent.left != null) {
+                        (parent.left).parent = parent;
+                    }
                 } else {
                     parent.right = current.right;
-                    current = current.right;
-                    current.parent = parent;
+                    if(parent.right != null) {
+                        (parent.right).parent = parent;
+                    }
                 }
             }
         } else {
