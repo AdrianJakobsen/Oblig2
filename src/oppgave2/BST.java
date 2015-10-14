@@ -89,6 +89,23 @@ public class BST<E extends Comparable<E>>
         inorder(list, startNode.right);
     }
 
+    private TreeNode<E> getNode(E element) {
+        if (search(element) == false) {
+            return null;
+        } else {
+            return path(element).get(path(element).size() - 1);
+        }
+    }
+
+    private boolean isLeaf(E element){
+
+        return false;
+    }
+
+    public TreeNode<E> testingGetNode(E element){
+        return getNode(element);
+    }
+
     /**
      * This inner class is static, because it does not access
      * any instance members defined in its outer class
@@ -109,6 +126,8 @@ public class BST<E extends Comparable<E>>
     public int getSize() {
         return size;
     }
+
+
 
     /**
      * Returns the root of the tree
@@ -168,8 +187,12 @@ public class BST<E extends Comparable<E>>
             } else {
                 if (e.compareTo(parent.element) < 0) {
                     parent.left = current.right;
+                    current = current.right;
+                    current.parent = parent;
                 } else {
                     parent.right = current.right;
+                    current = current.right;
+                    current.parent = parent;
                 }
             }
         } else {

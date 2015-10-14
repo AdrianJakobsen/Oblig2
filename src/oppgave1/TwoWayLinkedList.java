@@ -51,12 +51,14 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
         if (tail == null) {
             head = tail = newNode; // The new node with the last node
             tail.next = null; // Link the new is the only node in list
+            head.previous = null;
             tail.previous = null;
+            head.next = null;
         } else {
             tail.next = newNode;
             newNode.previous = tail;
             tail = newNode; // tail now points to the last node
-            tail.next = null    ;
+            tail.next = null;
         }
 
         size++; // Increase size
@@ -180,6 +182,23 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
         return current.element;
     }
 
+    public int lastIndexOf(E element, boolean t){
+        int count = 1;
+        Node current = tail;
+        while (current.previous != null){
+            if(current.element.equals(element)){
+                return size-count;
+            }else{
+                current=current.previous;
+                ++count;
+            }
+        }
+        if(head.element == element){
+            return 0;
+        }
+        return -1;
+    }
+
 
     @Override
     public E set(int index, E e) {
@@ -218,6 +237,10 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
                     ("Index: " + index + ", Size: " + size);
     }
 
+
+
+
+
     private static class Node<E> {
         E element;
         Node<E> next;
@@ -226,6 +249,7 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
         public Node(E element) {
             this.element = element;
         }
+
     }
 
     private class LinkedListIterator<E> implements java.util.ListIterator<E> {
@@ -260,6 +284,8 @@ public class TwoWayLinkedList<E> extends AbstractSequentialList<E> {
             E e = current.element;
             return e;
         }
+
+
 
         public void remove() {
             System.out.println("Not implemented");

@@ -210,6 +210,12 @@ public class TwoWayLinkedListTest {
     }
 
     @Test
+    public void iterator_next_apple(){
+        ListIterator iterator = (ListIterator) twoWayLinkedList.iterator();
+        assertEquals("house", iterator.next());
+    }
+
+    @Test
     public void iterator_nextIsHouse_house(){
         ListIterator iterator = (ListIterator) twoWayLinkedList.iterator();
         assertEquals("house", iterator.next());
@@ -220,4 +226,40 @@ public class TwoWayLinkedListTest {
         ListIterator iterator = (ListIterator) twoWayLinkedList.iterator();
         iterator.previous();
     }
+
+    @Test
+    public void lastIndexOf_apple_3(){
+        int lastIndexOf = twoWayLinkedList.lastIndexOf("apple", true);
+        assertEquals(3, lastIndexOf);
+    }
+
+    @Test
+    public void lastIndexOf_tabasco_5(){
+        int lastIndexOf = twoWayLinkedList.lastIndexOf("tabasco", true);
+        assertEquals(5, lastIndexOf);
+    }
+    @Test
+    public void lastIndexOf_kirby_2(){
+        int lastIndexOf = twoWayLinkedList.lastIndexOf("kirby", true);
+        assertEquals(2, lastIndexOf);
+    }
+
+    @Test
+    public void lastIndexOf_party_0(){
+        int lastIndexOf = twoWayLinkedList.lastIndexOf("party", true);
+        assertEquals(0, lastIndexOf);
+    }
+
+    @Test
+    public void lastIndexOf_house_1(){
+        int lastIndexOf = twoWayLinkedList.lastIndexOf("house", true);
+        assertEquals(1, lastIndexOf);
+    }
+
+    @Test
+    public void lastIndexOf_bastion_7(){
+        int lastIndexOf = twoWayLinkedList.lastIndexOf("bastion", true);
+        assertEquals(6, lastIndexOf);
+    }
+
 }
