@@ -135,12 +135,17 @@ public class TreeNodeTest {
     }
 
     @Test
-    public void delete_removeObjectSpecialCaseParentOfDeletetpointsToDeletedsLeft_64(){
+    public void delete_removeObjectSpecialCaseParentOfDeletetObjectpointsToDeletedObjectsLeft_64(){
         BST<Integer> tree = new BST<>(new Integer[]{50,30,20,40,65,60,70,69});
         tree.delete(70);
         assertEquals(tree.testingGetNode(69), tree.testingGetNode(65).right);
     }
 
-
+    @Test
+    public void delete_removeObjectSpecialCaseLeftChildOfDeletedObjectPointsToParentOfDeletedObject_50(){
+        BST<Integer> tree = new BST<>(new Integer[]{50,30,20,40,65,60,70,64});
+        tree.delete(65);
+        assertEquals(tree.testingGetNode(50), tree.testingGetNode(64).parent);
+    }
 
 }
