@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
-public class TreeNodeTest {
+public class BSTTest {
 
 
     @Test
