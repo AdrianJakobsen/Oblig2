@@ -2,7 +2,9 @@ package oppgave2;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
 
 public class TreeNodeTest {
 
@@ -146,6 +148,68 @@ public class TreeNodeTest {
         BST<Integer> tree = new BST<>(new Integer[]{50,30,20,40,65,60,70,64});
         tree.delete(65);
         assertEquals(tree.testingGetNode(50), tree.testingGetNode(64).parent);
+    }
+
+    @Test
+    public void getPath_getRootPath(){
+        BST<Integer> tree = new BST<>(new Integer[]{100,80,120,90,110,70,75,78});
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(100);
+        assertEquals(expected, tree.getPath(100));
+    }
+    @Test
+    public void getPath_110(){
+        BST<Integer> tree = new BST<>(new Integer[]{100,80,120,90,110,70,75,78});
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(100);
+        expected.add(120);
+        expected.add(110);
+        assertEquals(expected, tree.getPath(110));
+    }
+
+    @Test
+    public void getPath_78(){
+        BST<Integer> tree = new BST<>(new Integer[]{100,80,120,90,110,70,75,78});
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(100);
+        expected.add(80);
+        expected.add(70);
+        expected.add(75);
+        expected.add(78);
+        assertEquals(expected, tree.getPath(78));
+    }
+
+    @Test
+    public void preOrder_run1(){
+        BST<Integer> tree = new BST<>(new Integer[]{100,80,120,90,110,70,75,78});
+        Integer[] list = new Integer[]{70,75,78,80,90,100,110,120};
+        ArrayList<Integer> expected = new ArrayList<>();
+        for(int value : list) {
+            expected.add(value);
+        }
+        assertEquals(expected, tree.preOrder());
+    }
+
+    @Test
+    public void preOrder_run2(){
+        BST<Integer> tree = new BST<>(new Integer[]{50,30,20,40,65,60,70,69});
+        Integer[] list = new Integer[]{20,30,40,50,60,65,69,70};
+        ArrayList<Integer> expected = new ArrayList<>();
+        for(int value : list) {
+            expected.add(value);
+        }
+        assertEquals(expected, tree.preOrder());
+    }
+
+    @Test
+    public void preOrder_run3(){
+        BST<Integer> tree = new BST<>(new Integer[]{10,7,12,8,4,9,11});
+        Integer[] list = new Integer[]{4,7,8,9,10,11,12};
+        ArrayList<Integer> expected = new ArrayList<>();
+        for(int value : list) {
+            expected.add(value);
+        }
+        assertEquals(expected, tree.preOrder());
     }
 
 }

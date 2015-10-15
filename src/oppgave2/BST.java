@@ -1,5 +1,6 @@
 package oppgave2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BST<E extends Comparable<E>>
@@ -109,8 +110,41 @@ public class BST<E extends Comparable<E>>
         return false;
     }
 
+    public ArrayList<E> getPath(E e){
+        ArrayList<E> pathList = new ArrayList<>();
+        TreeNode<E> current = root;
+        if(search(e) == true){
+            while (current != null) {
+                pathList.add(current.element); // Add the node to the list
+                if (e.compareTo(current.element) < 0) {
+                    current = current.left;
+                } else if (e.compareTo(current.element) > 0) {
+                    current = current.right;
+                } else
+                    break;
+            }
+        }
+        //empty
+        return pathList;
+    }
+
     public TreeNode<E> testingGetNode(E element){
         return getNode(element);
+    }
+
+    public ArrayList<E> preOrder() {
+        ArrayList<E> preOrderList = new ArrayList<>();
+        preOrderRec(preOrderList, root);
+        return preOrderList;
+    }
+
+    private void preOrderRec(ArrayList<E> preOrderList, TreeNode<E> current){
+        if(current == null){
+            return;
+        }
+        preOrderRec(preOrderList, current.left);
+        preOrderList.add(current.element);
+        preOrderRec(preOrderList, current.right);
     }
 
     /**
